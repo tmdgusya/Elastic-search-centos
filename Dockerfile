@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 debian:latest
+FROM ubuntu:20.04
 
 LABEL email="dev0jsh@gmail.com"
 LABEL description="elasticsearch on debian linux"
@@ -16,9 +16,11 @@ RUN apt-get update
 
 # install jdk
 RUN apt-get install -y default-jdk
+
+# install elasticsearch
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-RUN curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.1-amd64.deb
-RUN dpkg -i elasticsearch-7.14.1-amd64.deb
+RUN curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.14.1-linux-x86_64.tar.gz
+RUN tar -xzvf elasticsearch-7.14.1-linux-x86_64.tar.gz
 
 # elasticsearch engine packages update
 RUN apt update
